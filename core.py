@@ -6,5 +6,9 @@ app = Flask(__name__)
 def index():
     return {"message" : "index"}
 
+@app.route("/dashboard")
+def dashboard():
+    return {"message" : "dashboard"}
+
 if __name__ == "__main__":
     app.run(debug = True)
