@@ -1,0 +1,15 @@
+** satoshi web-app**
+
+A web app to track personal finance.
+
+
+
+navbar tabs:
+
+-Dashboard : showing stats, graphs, currency prices and other information
+-submit(expense/income) : a form to submit new income/expense
+-user : a tab to show user information 
+-about : abou us!
+-sign-up/login/logout
+
+
