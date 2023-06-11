@@ -3,7 +3,7 @@
 {% block title %} Register {% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-md-center" style="margin-top: 10%;">
+    <div class="d-flex justify-content-md-center" style="margin-top: 5%;">
         <div>
         <form action="#", method="post" class="align-items-center">
             <legend align="center">Create Account</legend>
@@ -17,11 +17,11 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="password1" required placeholder="At least 6 characters">
             </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="check">
-                <label class="form-check-label">Remember me</label>
+            <div class="mb-3">
+                <label class="form-label">Repeat password</label>
+                <input type="password" class="form-control" id="exampleInputPassword2" name="password2" required>
             </div>
             <div align="center">
                 <button type="submit" class="btn btn-primary">Sign up</button>
