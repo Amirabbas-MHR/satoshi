@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
@@ -24,12 +24,14 @@ def create_app():
     from .models import User
     from .dashboard import dashboard_bp
     from .home import home_bp
+    from .admin import admin_bp
     create_database(app) #creates the database if it doesn't exist
 
     app.register_blueprint(auth_bp, url_prefix = "/auth") #setting the prefix to /auth
-    app.register_blueprint(dashboard_bp, url_prefix = "/") #TODO set the prefix
-    app.register_blueprint(home_bp, url_prefix = "/") #TODO set the prefix
-
+    app.register_blueprint(dashboard_bp, url_prefix = "/dashboard") 
+    app.register_blueprint(home_bp, url_prefix = "/home") 
+    app.register_blueprint(admin_bp, url_prefix = "/admin")
+    
     login_manager = LoginManager()
     login_manager.login_view = "auth.login"
     login_manager.init_app(app)
@@ -39,6 +41,9 @@ def create_app():
     def load_user(id):
         return User.query.get(int(id))
     
+    @app.route("/")
+    def index():
+        return redirect(url_for("home.index"))
     #returns the app
     return app
 

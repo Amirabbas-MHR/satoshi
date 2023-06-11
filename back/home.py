@@ -1,10 +1,9 @@
-from flask import Blueprint
-
+from flask import Blueprint, render_template
 
 home_bp = Blueprint('home', __name__)
 
-@home_bp.route('/home')
+
 @home_bp.route('/')
-def home():
-    return "HOME"
+def index():
+    return render_template("home.html")
 

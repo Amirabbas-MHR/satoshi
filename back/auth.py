@@ -21,7 +21,7 @@ def login():
             if check_password_hash(user.password, password):
                 flash('You have successfully logged in.', category='success')
                 login_user(user, remember=remember)
-                return redirect(url_for('dashboard.dashboard'))
+                return redirect(url_for('dashboard.index'))
             else:
                 flash('Invalid password.', category='error')
         else:
@@ -41,15 +41,15 @@ def register():
         email_exists = User.query.filter_by(email=email).first()
         user_exists = User.query.filter_by(username=username).first()
         if email_exists:
-            flash('Email already exists', category='error')
+            flash('Email already exists.', category='error')
         elif user_exists:
-            flash('Username already exists', category='error')
+            flash('Username already exists.', category='error')
         elif password1 != password2:
-            flash('Passwords do not match', category='error')
+            flash('Passwords do not match.', category='error')
         elif len(password1) < 6:
-            flash('Password must be at least 6 characters', category='error')
+            flash('Password must be at least 6 characters.', category='error')
         elif len(username) < 3:
-            flash('Username must be at least 3 characters', category='error')
+            flash('Username must be at least 3 characters.', category='error')
         elif not is_valid_email(email):
             flash('Email invalid.', category='error')
         else:
@@ -65,4 +65,4 @@ def register():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('home.home'))
+    return redirect(url_for('home.index'))
