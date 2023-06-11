@@ -1,56 +1,51 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
-from datetime import timedelta
+
+db = SQLAlchemy()
+DB_NAME = 'database.db'
+
 
 def create_app():
     """creates the flask app"""
 
     app = Flask(__name__)
 
-    #Secret key for encoding sessions
-    app.secret_key = "SECRET"
+    #Configurations
+    app.secret_key = "SECRET" #Secret key for encoding sessions
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    
+    db.init_app(app)
+    app.app_context().push() #DONT KNOW THE USAGE OF THIS
 
-    #setting session lifetime
-    app.permanent_session_lifetime = timedelta(days = 1)
+    #registering auth/models module
+    from .auth import auth_bp #relative import
+    from .models import User
+    from .dashboard import dashboard_bp
+    from .home import home_bp
+    create_database(app) #creates the database if it doesn't exist
 
-    #registering auth module
-    from .auth import auth
-    app.register_blueprint(auth, url_prefix = "/auth")
+    app.register_blueprint(auth_bp, url_prefix = "/auth") #setting the prefix to /auth
+    app.register_blueprint(dashboard_bp, url_prefix = "/") #TODO set the prefix
+    app.register_blueprint(home_bp, url_prefix = "/") #TODO set the prefix
 
+    login_manager = LoginManager()
+    login_manager.login_view = "auth.login"
+    login_manager.init_app(app)
+
+    #Registering the user loader function
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
+    
     #returns the app
     return app
 
-"""
-#index page
-@app.route("/")
-def index():
-    return {"message" : "index"}
 
-#dashboard, different for each user
-@app.route("/dashboard")
-def dashboard():
-    return {"user" : f"{session['email']}"}
-
-#login page
-@app.route("/login", methods = ["POST", "GET"])
-def login():
-    #request is either commiting data: POST
-    if request.method == "POST":
-
-        #making session stay in server for the time delta given
-        session.permanent = True
-
-        #Saving email and pass to session
-        session['email'] = request.form['email']
-        session['pwrd'] = request.form['pwrd']
-
-        #redirects to dashboard
-        return redirect(url_for("dashboard"))
+def create_database(app):
+    """creates the database"""
+    if not path.exists("back/" + DB_NAME):
+        db.create_all()
+        print("Database created")
     
-    #or is getting the login page itself
-    return render_template("login.html")
-
-
-"""
