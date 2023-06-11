@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %} Register {% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-md-center" style="margin-top: 10%;">
+        <div>
+        <form action="#", method="post" class="align-items-center">
+            <legend align="center">Create Account</legend>
+            <div class="mb-3">
+                <label class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" name="email" required placeholder="example@gmail.com">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input type="name" class="form-control" id="exampleInputUsername1" name="username" required placeholder="example">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="check">
+                <label class="form-check-label">Remember me</label>
+            </div>
+            <div align="center">
+                <button type="submit" class="btn btn-primary">Sign up</button>
+            </div>
+            <div>
+                <br>
+                <a href="/auth/login"> Already a user? Login</a>
+            </div>
+        </form>
+        </div>
+    </div>
+{% endblock %}
+
