@@ -12,4 +12,4 @@ navbar tabs:
 -about : abou us!
 -sign-up/login/logout
 
-#TODO create loged_in and not loged_in version of base template to show or not to show login and register links on navbar
+
