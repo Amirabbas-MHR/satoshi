@@ -26,8 +26,8 @@ def login():
                 flash('Invalid password.', category='error')
         else:
             flash('Email not found.', category='error')
-
-    return render_template('login.html')
+    print(current_user.is_authenticated)
+    return render_template('login.html', user = current_user)
 
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
@@ -59,7 +59,7 @@ def register():
             flash('You have successfully registered', category='success')
             return redirect(url_for('auth.login'))
 
-    return render_template('register.html')
+    return render_template('register.html', user = current_user)
 
 @auth_bp.route('/logout')
 @login_required
