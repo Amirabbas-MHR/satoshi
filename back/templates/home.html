@@ -3,6 +3,14 @@
 {% block title %} Home {% endblock %}
 
 {% block body %}
-    <h1>This is home</h1>
+    <!--from https://www.tgju.org/widget/get/ticker -->
+    <div class="p-1 m-3 ">
+      <tgju
+        type="ticker"
+        items="137121,137122,137138,137203,137205"
+        columns="dot"
+        token="webservice"
+      ></tgju>
+      <script src="https://api.tgju.org/v1/widget/v2" defer></script>
+    </div>
 {% endblock %}
-
