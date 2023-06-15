@@ -3,8 +3,24 @@
 {% block title %} Home {% endblock %}
 
 {% block body %}
+    {% if news_feed %}
+      <div class="row m-4">
+        {% for news in news_feed %}
+        <div class="col-sm d-flex align-items-stretch">
+          <div class="card border-secondry">
+            <img src="{{news['banner_image']}}" class="card-img-top" alt="Banner">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">{{ news['title'] }}</h5>
+              <p class="card-text">{{ news['summary'] }}</p>
+              <a href="{{ news['url'] }}" class="primary mt-auto align-self-start" target="_blank">Continue reading in {{ news['source'] }}</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    {% endif %}
     <!--from https://www.tgju.org/widget/get/ticker -->
-    <div class="p-1 m-3 ">
+    <div class="p-1 m-3 ", name="tgju">
       <tgju
         type="ticker"
         items="137121,137122,137138,137203,137205"
@@ -13,4 +29,6 @@
       ></tgju>
       <script src="https://api.tgju.org/v1/widget/v2" defer></script>
     </div>
+    <!-- -->
+
 {% endblock %}
